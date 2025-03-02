@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="script.js"></script> <!-- Vincular el script -->
+</head>
+<body>
+   
+ <!-- <meta http-equiv="refresh" content="3; URL=http://localhost:3000/monodroga"> -->
+    <!-- <a href="http://localhost:3000/medicamento">medicamento</a> -->
+    <a href="menu.html">medicamento_monodroga</a>
+    <h1>Lista de Monodrogas</h1>
+
+    <input type="text" id="busqueda" placeholder="Buscar por nombre..." onkeyup="filtrarTabla()">
+    <input type="number" id="cod" placeholder="Buscar por id..." onkeyup="filtrarTablaID()">
+    <table id="tablaMonodrogas" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>       
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se insertarán los datos dinámicamente -->
+      </tbody>
+    </table>
+  
+   
+    <h2>Registro de Monodroga</h2>
+    <form id="registroForm">
+            
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br><br>     
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        document.getElementById("registroForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("nombre").value;
+            
+            
+            fetch("http://localhost:7000/monodroga", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({name})
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+<h2>Modificar Monodroga</h2>
+<form id="registroFormUpdate_monodroga">
+
+    <label for="id">Código de la Monodroga:</label>
+    <input type="number" id="id" required><br><br>
+        
+    <label for="nuevo_nombre">Nombre nuevo:</label>
+    <input type="text" id="nuevo_nombre" required><br><br>     
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<script>
+    document.getElementById("registroFormUpdate_monodroga").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let nuevo_valor = document.getElementById("nuevo_nombre").value;
+        let id= document.getElementById("id").value;
+        
+        fetch("http://localhost:7000/monodroga", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({nuevo_valor, id})
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error("Error:", error));
+    });
+</script>
+
+<h2>Eliminar Monodroga</h2>
+<form id="registroFormDelete_monodroga">
+
+    <label for="id_delete">Código de la Monodroga:</label>
+    <input type="number" id="id_delete" required><br><br>
+        
+     <button type="submit">Eliminar</button>
+</form>
+
+<script>
+    document.getElementById("registroFormDelete_monodroga").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let id_delete= document.getElementById("id_delete").value;
+        
+        fetch("http://localhost:7000/monodroga", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id_delete})
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error("Error:", error));
+    });
+</script>
+</section>
+
+<section id="med">    
+<h2>Registro de Medicamento</h2>
+<form id="registroMedicamento">
+        
+    <label for="nombre_medicamento">Nombre:</label>
+    <input type="text" id="nombre_medicamento" required><br><br>     
+
+    <label for="accion">Nombre:</label>
+    <input type="text" id="accion" required><br><br>  
+
+    <button type="submit">Registrar</button>
+</form>
+
+<script>
+    document.getElementById("registroMedicamento").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let nombre_medicamento = document.getElementById("nombre_medicamento").value;
+        let accion = document.getElementById("accion").value;
+        
+        fetch("http://localhost:7000/medicamento", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({nombre_medicamento,accion})
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error("Error:", error));
+    });
+</script>
+
+</body>
+</html>

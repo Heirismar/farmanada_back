@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h2>Monodrogas del Medicamento</h2>
+    <table id="tablaMedicamento_Monodroga" border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Medicamento</th>       
+            <th>Monodroga</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí se insertarán los datos dinámicamente -->
+        </tbody>
+      </table>
+     
+      <h2>Añadir Monodrogas al Medicamento</h2>
+    <form id="registroMedicamento_Monodroga">
+        <div>Monodroga:   
+            <select id="selectMonodroga">
+                <option value="">Cargando...</option>
+            </select>
+        </div>     
+
+        <div>Medicamento:   
+            <select id="selectMedicamento">
+                <option value="">Cargando...</option>
+            </select>
+        </div> 
+        <button type="submit">Registrar</button>
+    </form>
+            <script>
+                async function cargarCampo1() {
+                    try {
+                        const response = await fetch("http://localhost:7000/monodroga");
+                        if (!response.ok) throw new Error("Error en la solicitud");
+
+                        const data = await response.json();
+                        console.log("Datos recibidos:", data);
+
+                        const select = document.getElementById("selectMonodroga");
+                        select.innerHTML = ""; // Limpiar opciones
+
+                        data.forEach(monodroga => {
+                            const option = document.createElement("option");
+                            option.value = monodroga.id;
+                            option.textContent = monodroga.nombre;
+                            select.appendChild(option);
+                        });
+                    } catch (error) {
+                        console.error("Error al cargar monodrogas:", error);
+                    }
+                }
+
+   
+                async function cargarCampo2() {
+                    try {
+                        const response = await fetch("http://localhost:7000/medicamento");
+                        if (!response.ok) throw new Error("Error en la solicitud");
+
+                        const data = await response.json();
+                        console.log("Datos recibidos:", data);
+
+                        const select = document.getElementById("selectMedicamento");
+                        select.innerHTML = ""; // Limpiar opciones
+
+                        data.forEach(medicamento => {
+                            const option = document.createElement("option");
+                            option.value = medicamento.id;
+                            option.textContent = medicamento.nombre;
+                            select.appendChild(option);
+                        });
+                    } catch (error) {
+                        console.error("Error al cargar medicamentos:", error);
+                    }
+                }
+
+
+                document.getElementById("registroMedicamento_Monodroga").addEventListener("submit", function(event) {
+                    event.preventDefault();
+        
+                    let monodroga = document.getElementById("selectMonodroga").value;
+                    let medicamento = document.getElementById("selectMedicamento").value;
+                    
+                    fetch("http://localhost:7000/medicamento_monodroga", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({monodroga,medicamento})
+                    })
+                    .then(response => response.json())
+                    .then(data => alert(data.message))
+                    .catch(error => console.error("Error:", error));
+                });
+
+                async function mostar_tabla() {
+                    try {
+                        const response = await fetch("http://localhost:7000/medicamento_monodroga");
+                        if (!response.ok) throw new Error("Error en la solicitud");
+
+                        const data = await response.json();
+                        console.log("Datos recibidos:", data);
+
+                        const tbody = document.querySelector("#tablaMedicamento_Monodroga tbody");
+                        tbody.innerHTML = ""; // Limpiar opciones
+
+                        data.forEach(medicamento_monodroga => {
+                            const tr = document.createElement("tr");
+                    
+                            const tdId = document.createElement("td");
+                            tdId.textContent = medicamento_monodroga.id;
+                            tr.appendChild(tdId);
+                    
+                            const tdMedicamento = document.createElement("td");
+                            tdMedicamento.textContent = medicamento_monodroga.medicamento;
+                            tr.appendChild(tdMedicamento);
+                    
+                            const tdMonodroga = document.createElement("td");
+                            tdMonodroga.textContent = medicamento_monodroga.monodroga;
+                            tr.appendChild(tdMonodroga);
+
+                            tbody.appendChild(tr);
+                        });
+                    } catch (error) {
+                        console.error("Error al cargar tabla:", error);
+                    }
+                }
+                window.onload = function() {
+                    mostar_tabla();
+                    cargarCampo1();
+                    cargarCampo2();
+                 };
+
+
+            </script>
+
+            
+</body>
+</html>
