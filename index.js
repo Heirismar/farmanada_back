@@ -1,7 +1,7 @@
-require("./monodroga.js");
+require("./CRUD/monodroga.js");
 require("./script.js");
-require("./sucursal.js");
-require("./cargo.js");
-require("./medicamento.js");
-require("./medicamento_monodroga.js");
+require("./CRUD/sucursal.js");
+require("./CRUD/cargo.js");
+require("./CRUD/medicamento.js");
+require("./CRUD/medicamento_monodroga.js");
 

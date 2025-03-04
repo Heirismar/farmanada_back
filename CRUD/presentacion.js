@@ -1,16 +1,15 @@
-let base=require('.base_datos');
-//SUCURSAL
-
-base.app.get("/sucursal", (req, res) => {
-    const sql =" select * from sucursal";
+let base=require('../base_datos');
+//CARGO
+base.app.get("/cargo", (req, res) => {
+    const sql =" select * from cargo";
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.post("/sucursal", (req, res) => {
-   const sql =`insert into sucursal (nombre,direccion, telefono, email) values ("${req.body.name}", "${req.body.direccion}","${req.body.tlf}","${req.body.email}")`;
+base.app.post("/cargo", (req, res) => {
+   const sql =`insert into cargo (titulo) values ("${req.body.name}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
@@ -18,20 +17,21 @@ base.app.post("/sucursal", (req, res) => {
     console.log(req.body);
 });
 
-base.app.put("/sucursal", (req, res) => {
-    const sql = `update sucursal set ${req.body.propiedad} = ? where id = ?`;
+base.app.put("/cargo", (req, res) => {
+    const sql = `update cargo set titulo = ? where id = ?`;
     base.con.query(sql, [req.body.nuevo_valor, req.body.id], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.delete("/sucursal", (req, res) => {
-   const sql =`delete from sucursal where (id) = ("${req.body.id}")`;
-   base.con.query(sql, (err, result) => {
+base.app.delete("/cargo", (req, res) => {
+   const sql =`delete from cargo where (id) = ("${req.body.id}")`;
+    base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
     console.log(req.body);
 });
-console.log(base);
+
+console.log(module);

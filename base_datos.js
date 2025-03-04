@@ -20,19 +20,7 @@ con.connect((err)=>{
 });
 
 
-// const sql="select * from monodroga";
-
-// con.query(sql,(err,result)=>{
-//     if(err) throw err;
-//     console.log(result);
-// });
-
-
-
-
-
-
-//Servidor en el puerto 3000
+//Servidor en el puerto 7000
 app.listen(7000, () => console.log("Servidor en http://localhost:7000"));
 module.exports={app,con};
 console.log(module);

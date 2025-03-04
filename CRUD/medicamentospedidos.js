@@ -1,4 +1,4 @@
-let base=require('.base_datos');
+let base=require('../base_datos');
 
 //MEDICAMENTO_MONODROGA
 base.app.get("/medicamento_monodroga", (req, res) => {

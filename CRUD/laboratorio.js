@@ -1,4 +1,4 @@
-let base=require('.base_datos');
+let base=require('../base_datos');
 //SUCURSAL
 
 base.app.get("/sucursal", (req, res) => {

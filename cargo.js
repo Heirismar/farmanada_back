@@ -1,4 +1,4 @@
-let base=require('./base_datos');
+let base=require('.base_datos');
 //CARGO
 base.app.get("/cargo", (req, res) => {
     const sql =" select * from cargo";

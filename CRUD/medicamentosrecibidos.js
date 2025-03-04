@@ -1,4 +1,4 @@
-let base=require('.base_datos');
+let base=require('../base_datos');
 
 //MEDICAMENTO_MONODROGA
 base.app.get("/medicamento_monodroga", (req, res) => {
@@ -17,4 +17,20 @@ base.app.post("/medicamento_monodroga", (req, res) => {
     });
 });
 
+base.app.put("/medicamento_monodroga", (req, res) => {
+    const sql = `update medicamento_monodroga set ${req.body.propiedad_medicamento_monodroga} = ? where id = ?`;
+    base.con.query(sql, [req.body.nuevo_valor_medicamento_monodroga, req.body.id_medicamento_monodroga], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(result);
+    });
+});
+
+base.app.delete("/medicamento_monodroga", (req, res) => {
+   const sql =`delete from medicamento_monodroga where id = ?`;
+    base.con.query(sql,[req.body.id_m_m], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(result);
+    });
+    console.log(req.body);
+});
 console.log(module);

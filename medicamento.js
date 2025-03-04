@@ -1,4 +1,4 @@
-let base=require('./base_datos');
+let base=require('.base_datos');
 //MEDICAMENTO
 base.app.get("/medicamento", (req, res) => {
     const sql =" select * from medicamento";
