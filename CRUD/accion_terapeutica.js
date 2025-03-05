@@ -1,15 +1,15 @@
 let base=require('../base_datos');
 //MEDICAMENTO
-base.app.get("/medicamento", (req, res) => {
-    const sql =" select * from medicamento";
+base.app.get("/accion_terapeutica", (req, res) => {
+    const sql =" select * from accion_terapeutica";
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.post("/medicamento", (req, res) => {
-   const sql =`insert into medicamento (nombre, principalComponente) values ("${req.body.nombre_medicamento}","${req.body.accion}")`;
+base.app.post("/accion_terapeutica", (req, res) => {
+   const sql =`insert into accion_terapeutica (accion_terap) values ("${req.body.accion_terap}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
@@ -17,16 +17,16 @@ base.app.post("/medicamento", (req, res) => {
     console.log(req.body);
 });
 
-base.app.put("/medicamento", (req, res) => {
-    const sql = `update medicamento set ${req.body.propiedad} = ? where id = ?`;
-    base.con.query(sql, [req.body.nuevo_valor, req.body.id], (err, result) => {
+base.app.put("/accion_terapeutica", (req, res) => {
+    const sql = `update accion_terapeutica set accion_terap = ? where id = ?`;
+    base.con.query(sql, [req.body.accion_terap_nuevo_valor, req.body.id_update_accion], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.delete("/medicamento", (req, res) => {
-   const sql =`delete from medicamento where (id) = ("${req.body.id}")`;
+base.app.delete("/accion_terapeutica", (req, res) => {
+   const sql =`delete from accion_terapeutica where (id) = ("${req.body.id_delete_accion}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);

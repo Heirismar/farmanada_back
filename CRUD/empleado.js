@@ -1,15 +1,15 @@
 let base=require('../base_datos');
-//CARGO
-base.app.get("/cargo", (req, res) => {
-    const sql =" select * from cargo";
+//EMPLEADO
+base.app.get("/empleado", (req, res) => {
+    const sql =" select * from empleado";
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.post("/cargo", (req, res) => {
-   const sql =`insert into cargo (titulo) values ("${req.body.name}")`;
+base.app.post("/empleado", (req, res) => {
+   const sql =`insert into empleado (id,nombre,apellido,telefono, email,direccion,fecha_ingreso) values ("${req.body.cedula_empleado}","${req.body.name_empleado}","${req.body.apellido_empleado}","${req.body.tlf_empleado}","${req.body.email_empleado}","${req.body.direccion_empleado}","${req.body.fecha_ingreso_empleado}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
@@ -17,16 +17,16 @@ base.app.post("/cargo", (req, res) => {
     console.log(req.body);
 });
 
-base.app.put("/cargo", (req, res) => {
-    const sql = `update cargo set titulo = ? where id = ?`;
-    base.con.query(sql, [req.body.nuevo_valor, req.body.id], (err, result) => {
+base.app.put("/empleado", (req, res) => {
+    const sql = `update empleado set ${req.body.propiedad_empleado} = ? where id = ?`;
+    base.con.query(sql, [req.body.empleado_nuevo_valor, req.body.cedula_empleado_modificar], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.delete("/cargo", (req, res) => {
-   const sql =`delete from cargo where (id) = ("${req.body.id}")`;
+base.app.delete("/empleado", (req, res) => {
+   const sql =`delete from empleado where (id) = ("${req.body.delete_cedula_empleado}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);

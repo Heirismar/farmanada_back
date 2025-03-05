@@ -1,33 +1,33 @@
 let base=require('../base_datos');
 
-//MEDICAMENTO_MONODROGA
-base.app.get("/medicamento_monodroga", (req, res) => {
-    const sql =" SELECT medicamento_monodroga.id as id, medicamento.nombre as medicamento, monodroga.nombre as monodroga FROM ((medicamento_monodroga INNER JOIN medicamento ON medicamento_monodroga.id_Medicamento=medicamento.id) INNER JOIN monodroga ON medicamento_monodroga.id_Monodroga=monodroga.id) ORDER BY id";
+//ROTACION
+base.app.get("/rotacion", (req, res) => {
+    const sql =" SELECT rotacion.idRotacion as id, sucursal.nombre as sucursal, rotacion.idEmpleado as cedula_empleado, empleado.nombre as nombre, empleado.apellido as apellido, cargo.titulo as cargo, rotacion.fecha_inicio as fecha_inicio, rotacion.fecha_final as fecha_final FROM (((rotacion INNER JOIN sucursal ON rotacion.idSucursal=sucursal.id) INNER JOIN empleado ON rotacion.idEmpleado=empleado.id) INNER JOIN cargo ON rotacion.idCargo=cargo.id)  ORDER BY idRotacion";
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.post("/medicamento_monodroga", (req, res) => {
-    const sql =`insert into medicamento_monodroga (id_Monodroga,id_Medicamento) values ("${req.body.monodroga}","${req.body.medicamento}")`;
+base.app.post("/rotacion", (req, res) => {
+    const sql =`insert into rotacion (idSucursal,idEmpleado,idCargo,fecha_inicio,fecha_final) values ("${req.body.rotacion_sucursal}","${req.body.rotacion_empleado}","${req.body.rotacion_cargo}","${req.body.rotacion_fecha_inicio}","${req.body.rotacion_fecha_final}")`;
     base.con.query(sql, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.put("/medicamento_monodroga", (req, res) => {
-    const sql = `update medicamento_monodroga set ${req.body.propiedad_medicamento_monodroga} = ? where id = ?`;
-    base.con.query(sql, [req.body.nuevo_valor_medicamento_monodroga, req.body.id_medicamento_monodroga], (err, result) => {
+base.app.put("/rotacion", (req, res) => {
+    const sql = `update rotacion set ${req.body.propiedad_rotacion} = ? where idRotacion = ?`;
+    base.con.query(sql, [req.body.rotacion_nuevo_valor, req.body.id_update_rotacion], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
 });
 
-base.app.delete("/medicamento_monodroga", (req, res) => {
-   const sql =`delete from medicamento_monodroga where id = ?`;
-    base.con.query(sql,[req.body.id_m_m], (err, result) => {
+base.app.delete("/rotacion", (req, res) => {
+   const sql =`delete from rotacion where idRotacion = ?`;
+    base.con.query(sql,[req.body.id_delete_rotacion], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(result);
     });
