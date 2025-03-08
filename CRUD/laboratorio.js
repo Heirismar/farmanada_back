@@ -1,5 +1,7 @@
-let base=require('../base_datos');
-//SUCURSAL
+import * as datos from '../base_datos.js';
+let base=datos;
+
+//LABORATORIO
 
 base.app.get("/laboratorio", (req, res) => {
     const sql =" select * from laboratorio";
@@ -34,4 +36,5 @@ base.app.delete("/laboratorio", (req, res) => {
     });
     console.log(req.body);
 });
-console.log(base);
+export default base;
+

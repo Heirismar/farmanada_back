@@ -1,6 +1,7 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
 
-//MEDICAMENTO_MONODROGA
+//MEDICAMENTO_LABORATORIO
 base.app.get("/medicamento_laboratorio", (req, res) => {
     const sql =" SELECT medicamento_laboratorio.id as id, medicamento.nombre as medicamento, presentacion.cantidad as cantidad, presentacion.nombre as presentacion, presentacion.contenido as contenido, presentacion.unidad_medida as unidad_medida, laboratorio.nombre as laboratorio, laboratorio.direccion as direccion_laboratorio FROM ((((medicamento_laboratorio INNER JOIN medicamento_presentacion ON medicamento_laboratorio.idMedicamento_presentacion=medicamento_presentacion.id ) INNER JOIN medicamento ON medicamento_presentacion.id_Medicamento=medicamento.id) INNER JOIN presentacion ON medicamento_presentacion.id_Presentacion=presentacion.id) INNER JOIN laboratorio ON medicamento_laboratorio.id_Laboratorio=laboratorio.id) ORDER BY id";
     base.con.query(sql, (err, result) => {
@@ -33,4 +34,4 @@ base.app.delete("/medicamento_laboratorio", (req, res) => {
     });
     console.log(req.body);
 });
-console.log(module);
+export default base;

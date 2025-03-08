@@ -19,5 +19,5 @@ function filtrarTabla() {
     });
   }
 
-  module.exports={filtrarTabla,filtrarTablaID};
+
   

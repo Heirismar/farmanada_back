@@ -1,4 +1,7 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
+
+//MONODROGA
 
 base.app.get("/monodroga", (req, res) => {
     const sql ="SELECT id, nombre FROM monodroga";
@@ -34,4 +37,4 @@ base.app.delete("/monodroga", (req, res) => {
      console.log(req.body);
  });
 
- console.log(module);
+ export default base;

@@ -1,5 +1,7 @@
-let base=require('../base_datos');
-//MEDICAMENTO
+import * as datos from '../base_datos.js';
+let base=datos;
+
+//ACCION TERAPEUTICA
 base.app.get("/accion_terapeutica", (req, res) => {
     const sql =" select * from accion_terapeutica";
     base.con.query(sql, (err, result) => {
@@ -34,4 +36,4 @@ base.app.delete("/accion_terapeutica", (req, res) => {
     console.log(req.body);
 });
 
-console.log(module);
+export default base;

@@ -1,13 +1,13 @@
-const express = require("express");
-let mysql=require('mysql2');
-const cors = require("cors");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import mysql from "mysql2";
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-let con=mysql.createConnection({
+export let con=mysql.createConnection({
     host:"localhost",
     database:"farmanada",
     user:"root",
@@ -22,5 +22,4 @@ con.connect((err)=>{
 
 //Servidor en el puerto 7000
 app.listen(7000, () => console.log("Servidor en http://localhost:7000"));
-module.exports={app,con};
-console.log(module);
+

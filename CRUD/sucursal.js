@@ -1,4 +1,6 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
+
 //SUCURSAL
 
 base.app.get("/sucursal", (req, res) => {
@@ -34,4 +36,5 @@ base.app.delete("/sucursal", (req, res) => {
     });
     console.log(req.body);
 });
-console.log(base);
+
+export default base;

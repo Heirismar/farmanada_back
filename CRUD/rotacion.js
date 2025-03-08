@@ -1,4 +1,5 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
 
 //ROTACION
 base.app.get("/rotacion", (req, res) => {
@@ -33,4 +34,5 @@ base.app.delete("/rotacion", (req, res) => {
     });
     console.log(req.body);
 });
-console.log(module);
+
+export default base;

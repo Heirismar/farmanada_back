@@ -1,6 +1,7 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
 
-//MEDICAMENTO_MONODROGA
+//MEDICAMENTO_ACCIONTERAPEUTICA
 base.app.get("/medicamento_accionterapeutica", (req, res) => {
     const sql =" SELECT medicamento_accionterapeutica.id as id, medicamento.nombre as medicamento, accion_terapeutica.accion_terap as accion_terapeutica FROM ((medicamento_accionterapeutica INNER JOIN medicamento ON medicamento_accionterapeutica.id_Medicamento=medicamento.id) INNER JOIN accion_terapeutica ON medicamento_accionterapeutica.id_AccionTerap=accion_terapeutica.id) ORDER BY id";
     base.con.query(sql, (err, result) => {
@@ -34,4 +35,4 @@ base.app.delete("/medicamento_accionterapeutica", (req, res) => {
     console.log(req.body);
 });
 
-console.log(module);
+export default base;

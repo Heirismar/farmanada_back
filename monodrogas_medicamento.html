@@ -1,51 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script defer src="index.js" type="module"></script> <!-- Vincular el script -->
-</head>
-<body>
-    <a href="index.html">Inicio</a>
-    <h2>Monodrogas del Medicamento</h2>
-    <table id="tablaMedicamento_Monodroga" border="1">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Medicamento</th>       
-            <th>Monodroga</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Aquí se insertarán los datos dinámicamente -->
-        </tbody>
-      </table>
-     
-      <h2>Añadir Monodrogas al Medicamento</h2>
-    <form id="registroMedicamento_Monodroga">
-        <div>Monodroga:   
-            <select id="selectMonodroga">
-                <option value="">Cargando...</option>
-            </select>
-        </div>     
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script defer src="index.js" type="module"></script> 
+    </head>
 
-        <div>Medicamento:   
-            <select id="selectMedicamento">
-                <option value="">Cargando...</option>
-            </select>
-        </div> 
-        <button type="submit">Registrar</button>
-    </form>
+    <body>
+        <!-- Enlace a página index.html -->
+        <a href="index.html">Inicio</a>
+
+        <!-- Mostrar tabla de relacion de medicamentos y monodrogas -->
+        <h2>Monodrogas del Medicamento</h2>
+
+            <table id="tablaMedicamento_Monodroga" border="1">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Medicamento</th>       
+                    <th>Monodroga</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Aquí se insertarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        
+        <!-- Formulario para agregar monodrogas al medicamento -->
+        <h2>Añadir Monodrogas al Medicamento</h2>
+
+            <form id="registroMedicamento_Monodroga">
+                <div>Monodroga:   
+                    <select id="selectMonodroga">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div>     
+
+                <div>Medicamento:   
+                    <select id="selectMedicamento">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div> 
+                <button type="submit">Registrar</button>
+            </form>
+
             <script>
+                // Función asíncrona para cargar valores existentes en la base datos para la entidad monodroga en el select
                 async function cargarCampo1() {
                     try {
                         const response = await fetch("http://localhost:7000/monodroga");
                         if (!response.ok) throw new Error("Error en la solicitud");
 
                         const data = await response.json();
-                        console.log("Datos recibidos:", data);
-
+                        
                         const select = document.getElementById("selectMonodroga");
                         select.innerHTML = ""; // Limpiar opciones
 
@@ -60,15 +69,14 @@
                     }
                 }
 
-   
+                // Función asíncrona para cargar valores existentes en la base datos para la entidad medicamento en el select
                 async function cargarCampo2() {
                     try {
                         const response = await fetch("http://localhost:7000/medicamento");
                         if (!response.ok) throw new Error("Error en la solicitud");
 
                         const data = await response.json();
-                        console.log("Datos recibidos:", data);
-
+                        
                         const select = document.getElementById("selectMedicamento");
                         select.innerHTML = ""; // Limpiar opciones
 
@@ -83,7 +91,7 @@
                     }
                 }
 
-
+                // Función asíncrona para registrar una nueva relacion de medicamento y monodroga en la base de datos
                 document.getElementById("registroMedicamento_Monodroga").addEventListener("submit", function(event) {
                     event.preventDefault();
         
@@ -100,6 +108,7 @@
                     .catch(error => console.error("Error:", error));
                 });
 
+                // Función asíncrona para mostrar la tabla de relación de medicamentos y monodrogas que existen en la base de datos
                 async function mostar_tabla() {
                     try {
                         const response = await fetch("http://localhost:7000/medicamento_monodroga");
@@ -132,15 +141,16 @@
                         console.error("Error al cargar tabla:", error);
                     }
                 }
+
+                // Llamada para que las funciones se ejecuten al cargar la página
                 window.onload = function() {
                     mostar_tabla();
                     cargarCampo1();
                     cargarCampo2();
-                 };
-
+                    };
 
             </script>
 
-            
-</body>
+                
+    </body>
 </html>

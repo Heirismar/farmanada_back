@@ -1,4 +1,5 @@
-let base=require('../base_datos');
+import * as datos from '../base_datos.js';
+let base=datos;
 
 //MEDICAMENTO_MONODROGA
 base.app.get("/medicamento_monodroga", (req, res) => {
@@ -33,4 +34,4 @@ base.app.delete("/medicamento_monodroga", (req, res) => {
     });
     console.log(req.body);
 });
-console.log(module);
+export default base;

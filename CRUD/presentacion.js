@@ -1,5 +1,7 @@
-let base=require('../base_datos');
-//CARGO
+import * as datos from '../base_datos.js';
+let base=datos;
+
+//PRESENTACION
 base.app.get("/presentacion", (req, res) => {
     const sql =" select * from presentacion";
     base.con.query(sql, (err, result) => {
@@ -34,4 +36,4 @@ base.app.delete("/presentacion", (req, res) => {
     console.log(req.body);
 });
 
-console.log(module);
+export default base;
